@@ -1,0 +1,195 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "user api",
+        "version": "1.0"
+    },
+    "servers": [{ "url": "http://localhost:8000/api" }],
+    "paths": {
+        "/users": {
+            "post": {
+                "description": "register new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "ahmad syahbandi"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "syahbandi"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "rahasia"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "register success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "username": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "description": "login user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "syahbandi"
+                                    },
+                                    "passwrod": {
+                                        "type": "string",
+                                        "example": "rahasia"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "login user success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Ahmad Syahbandi"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "example": "syahbandi"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "tes"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "login user failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "properties": {
+                                                "messages": {
+                                                    "type": "string",
+                                                    "example": "username or password wrong"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/current": {
+            "get": {
+                "description": "get current user data",
+                "parameters": [
+                    {
+                        "name": "security",
+                        "in": "header",
+                        "description": "Authorization",
+                        "schema": {
+                            "type": "string",
+                            "example": "test"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success get current user data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Ahmad Syahbandi"
+                                        },
+                                        "username": {
+                                            "type": "string",
+                                            "example": "syahbandi"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "tes"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update current user data"
+            }
+        },
+        "/users/logout": {
+            "delete": {
+                "description": "logout user"
+            }
+        }
+    }
+}
